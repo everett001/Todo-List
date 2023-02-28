@@ -1,0 +1,14 @@
+<div class="tabs">
+  <div class="tab-header">
+    <ng-container *ngFor="let tab of tabs; let i = index">
+      <div [ngStyle]="{'color':currentTabIndex === i ? colors[currentTabIndex] : 'gray' }" id="{{i}}" style="width: 50%;"
+        (click)="changeTab(i)">
+        {{tab.title}}
+      </div>
+    </ng-container>
+  </div>
+  <div style="background-color: lightgray;">
+    <div [ngStyle]="{'background-color': colors[currentTabIndex] }" class="tab-indicator">
+    </div>
+  </div>
+</div>

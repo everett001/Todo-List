@@ -1,0 +1,65 @@
+.container {
+    padding-top: 30px;
+    padding-bottom: 150px;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.row {
+    color: #121212;
+    margin: 60px auto;
+    border-top: 1px solid #121212;
+    border-bottom: 1px solid #121212;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.arrow {
+    height: 18px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+    .actions {
+        display: grid;
+        grid-template-rows: auto;
+        row-gap: 15px;
+        justify-content: center;
+    }
+
+    .row {
+        margin: 45px auto;
+    }
+}
+
+.no-task {
+    text-align: center;
+    color: gray;
+}
+
+textarea.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+
+.invalid {
+    border: 1px solid red;
+}
+
+.error {
+    color: red;
+}
+
+.down {
+    transform: rotate(-180deg);
+    margin-bottom: 10px;
+}

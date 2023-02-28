@@ -1,0 +1,58 @@
+.color-f18d8a {
+    color: #F18D8A;
+}
+
+.color-gray {
+    color: gray;
+}
+
+.color-77c48c {
+    color: #77c48c;
+}
+
+.tabs {
+    width: 500px;
+    overflow: hidden;
+}
+
+.tabs .tab-header {
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.tabs .tab-header>div {
+    /* width: calc(100% / 2); */
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    text-transform: uppercase;
+    outline: none;
+}
+
+.tabs .tab-header>div>i {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.tabs .tab-indicator {
+    position: relative;
+    /* width: calc(100% / 3); */
+    height: 5px;
+    left: 0px;
+    border-radius: 5px;
+    transition: all 500ms ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+    .tabs {
+        width: 290px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .tabs {
+        width: 330px;
+    }
+}

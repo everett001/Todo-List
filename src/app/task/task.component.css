@@ -1,0 +1,63 @@
+.row {
+    text-align: center;
+    margin: 10px 0px;
+    align-items: center;
+    color: #121212;
+}
+
+.row:hover {
+    background: #F5F5F5;
+}
+
+p {
+    width: 100%;
+    position: relative;
+    text-align: left;
+    padding: 0 20px;
+}
+
+#checkbox:checked {
+    background-color: #9E9E9E;
+}
+
+#checkbox:checked~p:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 4px;
+    background: #9E9E9E;
+    animation: strike 0.3s linear forwards;
+}
+
+@keyframes strike {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+.edit-button {
+    background: none;
+    border: none;
+}
+
+.edit-button:hover {
+    background-color: rgb(226, 226, 226);
+    border-radius: 50%;
+}
+
+img {
+    height: 18px;
+}
+
+@media screen and (max-width: 480px) {
+    .col-1 {
+        display: grid;
+        justify-content: center;
+        align-items: baseline;
+    }
+}

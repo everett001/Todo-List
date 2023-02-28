@@ -1,0 +1,120 @@
+<app-header></app-header>
+<div class="container">
+
+  <div class="actions">
+    <app-tab-animation *ngIf="this.tabs" [tabs]="tabs" (onChange)="changeTab($event)"></app-tab-animation>
+    <div style="text-align: right;">
+      <button type="button" class="btn btn-primary" #todoModal data-bs-toggle="modal" data-bs-target="#toDoModal"
+        (click)="onReset()">
+        Add New Task
+      </button>
+    </div>
+    <button type="button" class="btn btn-primary" style="display:none" #deleteModal data-bs-toggle="modal"
+      data-bs-target="#deleteModal">
+    </button>
+  </div>
+
+  <div class="row">
+    <div class="col-8 col-lg-9 col-md-9 col-sm-8 title">
+      <h4>Task(s)</h4>
+      <img class="arrow" src="assets/sort-up-solid.svg" [ngClass]="{down: sortBy === 'file-name' && sortDown}"
+        (click)="onSort('file-name')">
+    </div>
+    <div class="col-3 col-lg-2 col-md-2 col-sm-3 title">
+      <h4>Due date</h4>
+      <img class="arrow" src="assets/sort-up-solid.svg" [ngClass]="{down: sortBy === 'duedate' && sortDown}"
+        (click)="onSort('duedate')">
+    </div>
+    <div class="col-1">
+
+    </div>
+  </div>
+
+  <div [style.display]="currentTab === 0 ? 'block' : 'none'">
+    <ng-container *ngIf="tasksDueToday.length > 0; else noTask">
+      <ng-container *ngFor="let task of tasksDueToday; ; let i = index">
+        <app-task [desc]="task.desc" [duedate]="task.duedate" (edit)="onEdit(task)" (delete)="onDelete(task)"
+          (complete)="onComplete(task)"></app-task>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div [style.display]="currentTab === 1 ? 'block' : 'none'">
+    <ng-container *ngIf="upcomingTasks.length > 0; else noTask">
+      <ng-container *ngFor="let task of upcomingTasks; ; let i = index">
+        <app-task [desc]="task.desc" [duedate]="task.duedate" (edit)="onEdit(task)" (delete)="onDelete(task)"
+          (complete)="onComplete(task)"></app-task>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div [style.display]="currentTab === 2 ? 'block' : 'none'">
+    <ng-container *ngIf="completedTasks.length > 0; else noTask">
+      <ng-container *ngFor="let task of completedTasks; ; let i = index">
+        <app-task [desc]="task.desc" [duedate]="task.duedate" [status]="task.status" (edit)="onEdit(task)"
+          (delete)="onDelete(task)" (complete)="onComplete(task)"></app-task>
+      </ng-container>
+    </ng-container>
+  </div>
+  <ng-template #noTask>
+    <div>
+      <h4 class="no-task">No Task Found</h4>
+    </div>
+  </ng-template>
+</div>
+
+<!-- modal -->
+<div class="modal fade" id="toDoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{currentTask?.desc ? 'Edit' : 'Add'}} New Task</h5>
+        <button type="button" #myModalClose class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="addTaskForm" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+            <textarea class="form-control"
+              [ngClass]="{ 'invalid': submitted && addTaskForm.get('description')?.errors }"
+              id="exampleFormControlTextarea1" rows="3" formControlName="description">
+            </textarea>
+            <span class="error"
+              *ngIf="!addTaskForm.get('description')?.valid && addTaskForm.get('description')?.touched || submitted && addTaskForm.get('description')?.errors">
+              Please enter a description!
+            </span>
+          </div>
+          <div class="mb-3">
+            <label for="validationServer01" class="form-label">Due Date</label>
+            <input type="date" class="form-control" id="validationServer01" formControlName="duedate">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">{{currentTask?.desc ? 'Update' : 'Add'}}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="text-align: center;">
+      <div class="modal-header" style="border-bottom: none; display: block">
+        <div style="display: flex; justify-content: center;">
+          <img src="assets/triangle-exclamation-solid.svg" style="height: 70px;">
+        </div>
+        <h4 class="modal-title" id="exampleModalLabel">Are you sure?</h4>
+        <button type="button" #closeDelete class="btn-close" style="display:none" data-bs-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Do you really want to delete these task? This process cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="onConfirmDelete()">Confirm</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

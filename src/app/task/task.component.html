@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-8 col-lg-9 col-md-9 col-sm-8">
+        <div class="form-check">
+            <input *ngIf="status !== 1" class="form-check-input" type="checkbox" value="" id="checkbox"
+                (click)="onComplete()">
+            <p>{{desc}}</p>
+        </div>
+    </div>
+    <div class="col-3 col-lg-2 col-md-2 col-sm-3">
+        <p>{{duedate | date}}</p>
+    </div>
+    <div class="col-1">
+        <button *ngIf="status !== 1" class="edit-button" (click)="onEdit()">
+            <img src="assets/edit.svg">
+        </button>
+        <button class="edit-button" (click)="onDelete()">
+            <img src="assets/delete.svg">
+        </button>
+    </div>
+</div>
